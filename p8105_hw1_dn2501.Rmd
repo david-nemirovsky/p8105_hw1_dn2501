@@ -1,0 +1,44 @@
+---
+title: "p8105_hw1_dn2501"
+author: David Nemirovsky
+output: github_document
+---
+
+This is my solution to HW1:
+
+```{r}
+library(tidyverse)
+
+```
+
+## Problem 1
+
+Create a data frame with the specified elements.
+
+```{r}
+Prob1_df=
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    factor_vec = c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "high", "high")
+)
+```
+
+Take the mean of each variable in my dat frame.
+
+```{r}
+mean(pull(Prob1_df, samp))
+mean(pull(Prob1_df, samp_gt_0))
+mean(pull(Prob1_df, char_vec))
+mean(pull(Prob1_df, factor_vec))
+```
+
+I am able to take the mean of numbers/logical but not characters/factors.
+
+```{r}
+as.numeric(pull(Prob1_df, samp))
+as.numeric(pull(Prob1_df, samp_gt_0))
+as.numeric(pull(Prob1_df, char_vec))
+as.numeric(pull(Prob1_df, factor_vec))
+```

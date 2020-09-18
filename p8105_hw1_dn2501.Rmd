@@ -7,7 +7,7 @@ output: github_document
 
 This is my solution to HW1:
 
-```{r}
+```{r load tinyverse, collapse = TRUE}
 library(tidyverse)
 ```
 
@@ -15,7 +15,7 @@ library(tidyverse)
 
 Create a data frame with the specified elements.
 
-```{r creating a df}
+```{r creating a df, collapse = TRUE}
 Prob1_df =
   tibble(
     samp = rnorm(10),
@@ -25,18 +25,18 @@ Prob1_df =
 )
 ```
 
-Take the mean of each variable in my dat frame.
+Take the mean of each variable in my data frame.
 
-```{r means}
+```{r means, collapse = TRUE}
 mean(pull(Prob1_df, samp))
 mean(pull(Prob1_df, samp_gt_0))
 mean(pull(Prob1_df, char_vec))
 mean(pull(Prob1_df, factor_vec))
 ```
 
-I am able to take the mean of numbers/logical but not characters/factors.
+I am able to take the mean of numbers/logical vectors but not characters/factors.
 
-```{r converting variables, message= FALSE}
+```{r converting variables, eval = FALSE}
 as.numeric(pull(Prob1_df, samp_gt_0))
 as.numeric(pull(Prob1_df, char_vec))
 as.numeric(pull(Prob1_df, factor_vec))
@@ -44,7 +44,7 @@ as.numeric(pull(Prob1_df, factor_vec))
 
 This function is able to convert the logical variable to values of 0 and 1, however, it resulted in vectors of NA for the character and factor variables. This could be because R has no way of assigning numeric values to character/factor values, therefore a mean of these cannot be computed.
 
-```{r more converting}
+```{r more converting, collapse = TRUE}
 as.numeric(pull(Prob1_df, samp_gt_0)) * pull(Prob1_df, samp)
 as.factor(pull(Prob1_df, samp_gt_0)) * pull(Prob1_df, samp)
 as.numeric(as.factor(pull(Prob1_df, samp_gt_0))) * pull(Prob1_df, samp)
@@ -54,4 +54,18 @@ Instead of converting the logical vector into a numeric with values of 0 and 1, 
 
 
 ##Problem 2
+
+```{r descriptive summary of penguins data set, results = 'hide'}
+library(palmerpenguins)
+data("penguins", package = "palmerpenguins")
+summary(penguins)
+nrow(penguins)
+ncol(penguins)
+is.na(pull(penguins, flipper_length_mm))
+na.omit(pull(penguins, flipper_length_mm))
+mean(na.omit(pull(penguins, flipper_length_mm)))
+```
+
+The "penguins" data set is composed of variables of penguins indicating their species, island of residency, bill length (mm), bill depth (mm), flipper length (mm), body mass (g), sex, and the year the data was recorded. This data set has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length of penguins in this data set is `r mean(na.omit(pull(penguins, flipper_length_mm)))` mm.
+
 

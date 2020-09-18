@@ -1,13 +1,13 @@
 ---
 title: "p8105_hw1_dn2501"
 author: David Nemirovsky
-date: 9/16/20
+date: 9/18/20
 output: github_document
 ---
 
-This is my solution to HW1:
+This is my solution to **Homework 1**:
 
-```{r load tinyverse, collapse = TRUE}
+```{r load tinyverse, collapse = TRUE, message = FALSE}
 library(tidyverse)
 ```
 
@@ -42,7 +42,7 @@ as.numeric(pull(Prob1_df, char_vec))
 as.numeric(pull(Prob1_df, factor_vec))
 ```
 
-This function is able to convert the logical variable to values of 0 and 1, however, it resulted in vectors of NA for the character and factor variables. This could be because R has no way of assigning numeric values to character/factor values, therefore a mean of these cannot be computed.
+The above function is able to convert the logical variable to values of 0 and 1, however, it resulted in vectors of NA for the character and factor variables. This could be because R has no way of assigning numeric values to character/factor values, therefore a mean of these cannot be computed.
 
 ```{r more converting, collapse = TRUE}
 as.numeric(pull(Prob1_df, samp_gt_0)) * pull(Prob1_df, samp)
@@ -50,13 +50,11 @@ as.factor(pull(Prob1_df, samp_gt_0)) * pull(Prob1_df, samp)
 as.numeric(as.factor(pull(Prob1_df, samp_gt_0))) * pull(Prob1_df, samp)
 ```
 
-Instead of converting the logical vector into a numeric with values of 0 and 1, I was able to first convert the logical vector into a factor, and then the factor vector into a numeric, resulting in values of 1 and 2 for the original logical vector; giving more meaning to its scaling of the sample.
+Instead of converting the logical vector into a numeric with values of 0 and 1, I was able to first convert the logical vector into a factor, and then the factor vector into a numeric, resulting in values of 1 and 2 for the original logical vector; giving more meaning to its scaling by the sample.
 
-
-##Problem 2
+## Problem 2
 
 ```{r descriptive summary of penguins data set, results = 'hide'}
-library(palmerpenguins)
 data("penguins", package = "palmerpenguins")
 summary(penguins)
 nrow(penguins)
@@ -66,9 +64,9 @@ na.omit(pull(penguins, flipper_length_mm))
 mean(na.omit(pull(penguins, flipper_length_mm)))
 ```
 
-The "penguins" data set is composed of variables of penguins indicating their species, island of residency, bill length (mm), bill depth (mm), flipper length (mm), body mass (g), sex, and the year the data was recorded. This data set has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length of penguins in this data set is `r mean(na.omit(pull(penguins, flipper_length_mm)))` mm.
+The "penguins" data set is composed of variables for penguins living near Palmer Station, Antarctica in 2007-2009 indicating their species, island of residency, bill length (mm), bill depth (mm), flipper length (mm), body mass (g), and sex. This data set has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length of penguins in this data set is `r mean(na.omit(pull(penguins, flipper_length_mm)))` mm.
 
-```{r plot of flipper length vs bill length}
+```{r plot of flipper length vs bill length, warning = FALSE, collapse = TRUE}
 ggplot(penguins, aes(x = bill_length_mm, 
                      y = flipper_length_mm,
                      color = species)) + 
@@ -76,4 +74,4 @@ ggplot(penguins, aes(x = bill_length_mm,
 ggsave("penguins_scatter_plot.pdf", height = 4, width = 6)
 ```
 
-This is a plot of flipper length (mm) vs bill length (mm) for the penguins in the data set.
+The above is a plot of flipper length (mm) vs bill length (mm) for the penguins in the data set.

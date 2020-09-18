@@ -1,6 +1,7 @@
 ---
 title: "p8105_hw1_dn2501"
 author: David Nemirovsky
+date: 9/16/20
 output: github_document
 ---
 
@@ -8,15 +9,14 @@ This is my solution to HW1:
 
 ```{r}
 library(tidyverse)
-
 ```
 
 ## Problem 1
 
 Create a data frame with the specified elements.
 
-```{r}
-Prob1_df=
+```{r creating a df}
+Prob1_df =
   tibble(
     samp = rnorm(10),
     samp_gt_0 = samp > 0,
@@ -27,7 +27,7 @@ Prob1_df=
 
 Take the mean of each variable in my dat frame.
 
-```{r}
+```{r means}
 mean(pull(Prob1_df, samp))
 mean(pull(Prob1_df, samp_gt_0))
 mean(pull(Prob1_df, char_vec))
@@ -36,9 +36,22 @@ mean(pull(Prob1_df, factor_vec))
 
 I am able to take the mean of numbers/logical but not characters/factors.
 
-```{r}
-as.numeric(pull(Prob1_df, samp))
+```{r converting variables, message= FALSE}
 as.numeric(pull(Prob1_df, samp_gt_0))
 as.numeric(pull(Prob1_df, char_vec))
 as.numeric(pull(Prob1_df, factor_vec))
 ```
+
+This function is able to convert the logical variable to values of 0 and 1, however, it resulted in vectors of NA for the character and factor variables. This could be because R has no way of assigning numeric values to character/factor values, therefore a mean of these cannot be computed.
+
+```{r more converting}
+as.numeric(pull(Prob1_df, samp_gt_0)) * pull(Prob1_df, samp)
+as.factor(pull(Prob1_df, samp_gt_0)) * pull(Prob1_df, samp)
+as.numeric(as.factor(pull(Prob1_df, samp_gt_0))) * pull(Prob1_df, samp)
+```
+
+Instead of converting the logical vector into a numeric with values of 0 and 1, I was able to first convert the logical vector into a factor, and then the factor vector into a numeric, resulting in values of 1 and 2 for the original logical vector; giving more meaning to its scaling of the sample.
+
+
+##Problem 2
+

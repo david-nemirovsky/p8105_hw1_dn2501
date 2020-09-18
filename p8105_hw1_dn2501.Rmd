@@ -68,4 +68,12 @@ mean(na.omit(pull(penguins, flipper_length_mm)))
 
 The "penguins" data set is composed of variables of penguins indicating their species, island of residency, bill length (mm), bill depth (mm), flipper length (mm), body mass (g), sex, and the year the data was recorded. This data set has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length of penguins in this data set is `r mean(na.omit(pull(penguins, flipper_length_mm)))` mm.
 
+```{r plot of flipper length vs bill length}
+ggplot(penguins, aes(x = bill_length_mm, 
+                     y = flipper_length_mm,
+                     color = species)) + 
+  geom_point()
+ggsave("penguins_scatter_plot.pdf", height = 4, width = 6)
+```
 
+This is a plot of flipper length (mm) vs bill length (mm) for the penguins in the data set.
